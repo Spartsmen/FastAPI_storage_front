@@ -1,31 +1,25 @@
 import { useState } from 'react';
 import { useAppDispatch, useAppSelector } from "../store/hoocs";
-import { checkIsAuth, registerUser } from "../store/reduces/AuthSlice";
-import "../styles/register.css";
+import { checkIsAuth, loginUser } from "../store/reduces/AuthSlice";
 
-const RegisterPage = () => {
+const LoginPage = () => {
   const dispatch = useAppDispatch();
 
   const [email, setEmail] = useState<string>(''); 
   const [password, setPassword] = useState<string>('');
-  const [username, setUsername] = useState<string>('');
-
-  const isAuth = useAppSelector((state) => checkIsAuth(state.authSlice));
   const {status,isLoading} = useAppSelector((state) => state.authSlice);
 
 
-  const handleRegistration = () => {
+  const handleLogin = () => {
     try {
       dispatch(
-        registerUser({
+        loginUser({
           email,
           password,
-          username,
         })
       );
       setEmail('')
       setPassword('');
-      setUsername('');
     } catch (e) {
       console.log(e);
     }
@@ -33,12 +27,12 @@ const RegisterPage = () => {
   return (
     <div className="login">
       <form onSubmit={(e) => e.preventDefault()}>
-        <h1>Registration</h1>
-        <input 
-          type="text"
-          placeholder="Username"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
+        <h1>Log in </h1>
+      <input 
+          type="email"
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
         />
         <input 
           type="password"
@@ -46,21 +40,14 @@ const RegisterPage = () => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-      <input 
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-            <button onClick={handleRegistration} className='reg_button'>Register</button>
+            <button onClick={handleLogin} className='log_button'>Log in</button>
 
             <div>
-              <h3> Already have an account?</h3>
-              <a href="login">Log in</a>
+              <h3> Not registered yet?</h3>
+              <a href="register">Register</a>
             </div>
 
             <div className='hor_line'></div>
-
         
       </form>
       {isLoading ? <h2>Loading</h2>: ''}
@@ -73,4 +60,4 @@ const RegisterPage = () => {
 
 
 
-export default RegisterPage
+export default LoginPage
