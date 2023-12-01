@@ -15,7 +15,7 @@ const LoginPage = () => {
 
   useEffect(() => {
     if (isAuth) {
-      navigate('/dashboard'); // Перенаправляем на dashboard, если пользователь аутентифицирован
+      navigate('/dashboard'); 
     }
   }, [isAuth, navigate]);
 

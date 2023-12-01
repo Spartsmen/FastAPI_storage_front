@@ -1,7 +1,7 @@
 import axios from '../axios';
 import { AxiosError } from "axios";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { docsState, docs } from '../../types/types';
+import { docsState} from '../../types/types';
 
 const initialState: docsState = {
   document: null,
@@ -14,7 +14,7 @@ export const getDocs = createAsyncThunk(
     async (id: number, { rejectWithValue }) => {
       try {
         const data = await axios.get('/get_docs', {
-          params: { document_id: id } // Передача document_id как параметра запроса
+          params: { document_id: id }
         });
         return data.data
       } catch (error) {

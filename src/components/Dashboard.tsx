@@ -10,7 +10,7 @@ const Dashboard = () => {
 
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const docs = useAppSelector((state) => state.docsSlice.document); // Убедитесь, что путь до state.docsSlice.document правильный
+  const docs = useAppSelector((state) => state.docsSlice.document); 
   const isAuth = useAppSelector((state) => checkIsAuth(state.authSlice));
   
 
@@ -18,7 +18,7 @@ const Dashboard = () => {
     if (!isAuth) {
       navigate('/login');
     }
-  }, [isAuth, navigate]); // Добавлены зависимости в useEffect
+  }, [isAuth, navigate]);
 
   const handleGetDocs = () => {
     const numericId = Number(id);

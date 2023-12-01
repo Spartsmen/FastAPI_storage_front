@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useAppDispatch, useAppSelector } from "../store/hoocs";
-import { checkIsAuth, registerUser } from "../store/reduces/AuthSlice";
+import { registerUser } from "../store/reduces/AuthSlice";
 import "../styles/register.css";
 
 const RegisterPage = () => {
@@ -10,7 +10,6 @@ const RegisterPage = () => {
   const [password, setPassword] = useState<string>('');
   const [username, setUsername] = useState<string>('');
 
-  const isAuth = useAppSelector((state) => checkIsAuth(state.authSlice));
   const {status,isLoading} = useAppSelector((state) => state.authSlice);
 
 
