@@ -15,10 +15,16 @@ export interface authState {
       document: docs | null;
       isLoading:  Boolean;
       status: string | null;
+      docId: string | null;
   }
 export interface docs {
     id: string | null;
     owner_id: string | null;
     name: string | null;
     content: string | null;
+}
+export interface addDocsParams {
+  name: string | null;
+  content: string | null;
+  referrals: string | null;
 }

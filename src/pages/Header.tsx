@@ -1,9 +1,8 @@
-import { useAppDispatch, useAppSelector } from "../store/hoocs";
+import { useAppSelector } from "../store/hoocs";
 import { checkIsAuth } from "../store/reduces/AuthSlice";
 import '../styles/header.css'
 
 const Header = () => {
-    const dispatch = useAppDispatch();
     const isAuth = useAppSelector((state) => checkIsAuth(state.authSlice));
     //console.log(isAuth)
     return (
@@ -13,9 +12,9 @@ const Header = () => {
         </div>
     
         <div className="right_section">
-          {isAuth ? <a href="/dashboard">Аккаунт</a>
+          {isAuth ? <a href="/dashboard">Account</a>
           : 
-          <a href="/login">Войти</a>}
+          <a href="/login">Log in</a>}
         </div>
       </div>
     )

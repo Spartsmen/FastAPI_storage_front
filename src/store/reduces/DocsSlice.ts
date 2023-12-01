@@ -1,12 +1,13 @@
 import axios from '../axios';
 import { AxiosError } from "axios";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { docsState} from '../../types/types';
+import { addDocsParams, docsState} from '../../types/types';
 
 const initialState: docsState = {
   document: null,
   isLoading: false,
   status: null,
+  docId: null,
 };
 
 export const getDocs = createAsyncThunk(
@@ -29,12 +30,31 @@ export const getDocs = createAsyncThunk(
       }
     }
   );
+  export const addDocs = createAsyncThunk(
+    '/add_docs',
+    async ({ name, content, referrals}:addDocsParams, { rejectWithValue }) => {
+      try {
+        const { data } = await axios.post('/add_docs', {name, content, referrals });
+        return data;
+      } catch (error) {
+        console.log(error);
+        if (error instanceof Error) {
+          return rejectWithValue({
+            message: AxiosError.ERR_BAD_RESPONSE || error.message 
+          });
+        }
+        return rejectWithValue({ message: 'Error' });
+  
+      }
+    }
+  );
 
   export const docsSlice = createSlice({
     name: 'docs',
     initialState,
     reducers: {},
     extraReducers: (builder) => {
+      // get docs
       builder.addCase(getDocs.pending, (state) => {
         state.isLoading = true;
         state.status = null;
@@ -47,6 +67,22 @@ export const getDocs = createAsyncThunk(
       builder.addCase(getDocs.rejected, (state) => {
         state.isLoading = false;
         state.status = 'Error';
+      });  
+      // add docs
+      builder.addCase(addDocs.pending, (state) => {
+        state.isLoading = true;
+        state.status = null;
+      });
+      builder.addCase(addDocs.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.status = "Success";
+        state.docId = action.payload['document id']
+        console.log(state.docId)
+      });
+      builder.addCase(addDocs.rejected, (state) => {
+        state.isLoading = false;
+        state.status = 'Error';
+        state.docId = null
       });  
       
     }
