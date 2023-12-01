@@ -11,14 +11,14 @@ const initialState: docsState = {
 
 export const getDocs = createAsyncThunk(
     '/get_docs',
-    async ({id}: any, { rejectWithValue }) => {
+    async (id: number, { rejectWithValue }) => {
       try {
-        const { data } = await axios.get('/get_docs', {
-          params: { id }
+        const data = await axios.get('/get_docs', {
+          params: { document_id: id } // Передача document_id как параметра запроса
         });
-        return data
+        return data.data
       } catch (error) {
-        //console.log(error);
+        console.log(error);
         if (error instanceof Error) {
           return rejectWithValue({
             message: AxiosError.ERR_BAD_RESPONSE || error.message 
@@ -42,7 +42,7 @@ export const getDocs = createAsyncThunk(
       builder.addCase(getDocs.fulfilled, (state, action) => {
         state.isLoading = false;
         state.status = "Success";
-        state.document = action.payload.document;
+        state.document = Array.isArray(action.payload) ? action.payload[0] : null;;
       });
       builder.addCase(getDocs.rejected, (state) => {
         state.isLoading = false;

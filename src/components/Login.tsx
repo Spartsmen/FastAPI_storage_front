@@ -1,13 +1,23 @@
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from "../store/hoocs";
+import { useNavigate } from 'react-router-dom';
 import { checkIsAuth, loginUser } from "../store/reduces/AuthSlice";
 
 const LoginPage = () => {
   const dispatch = useAppDispatch();
 
+  const navigate = useNavigate();
+  const isAuth = useAppSelector((state) => checkIsAuth(state.authSlice));
   const [email, setEmail] = useState<string>(''); 
   const [password, setPassword] = useState<string>('');
   const {status,isLoading} = useAppSelector((state) => state.authSlice);
+
+
+  useEffect(() => {
+    if (isAuth) {
+      navigate('/dashboard'); // Перенаправляем на dashboard, если пользователь аутентифицирован
+    }
+  }, [isAuth, navigate]);
 
 
   const handleLogin = () => {
