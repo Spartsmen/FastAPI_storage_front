@@ -15,7 +15,7 @@ const LoginPage = () => {
       dispatch(
         loginUser({
           email,
-          password,
+          password
         })
       );
       setEmail('')

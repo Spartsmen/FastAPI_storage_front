@@ -6,7 +6,7 @@ import instance from "../axios";
 
 const initialState: authState = {
   user: null,
-  token: null,
+  token: window.localStorage.getItem('access_token'),
   isLoading: false,
   status: null,
 };
@@ -32,7 +32,7 @@ export const registerUser = createAsyncThunk(
 
 export const loginUser = createAsyncThunk(
   '/login',
-  async ({ email, password }: { email: string; password: string }, { rejectWithValue }) => {
+  async ({ email, password }: any, { rejectWithValue }) => {
     try {
       const params = new URLSearchParams();
       params.append('username', email); 
@@ -66,7 +66,14 @@ export const loginUser = createAsyncThunk(
 export const authSlice = createSlice({
   name: 'auth',
   initialState,
-  reducers: {},
+  reducers: {
+      logout: (state) => {
+        state.token = null;
+        state.user = null;
+        state.isLoading = false
+        state.status = null
+      }
+  },
   extraReducers: (builder) => {
     //registration
     builder.addCase(registerUser.pending, (state) => {
@@ -103,4 +110,5 @@ export const authSlice = createSlice({
 
 export const checkIsAuth = (state: authState) => Boolean(state.token);
 export default authSlice.reducer;
+export const { logout } = authSlice.actions;
 
