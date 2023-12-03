@@ -4,7 +4,6 @@ import '../styles/header.css'
 
 const Header = () => {
     const isAuth = useAppSelector((state) => checkIsAuth(state.authSlice));
-    //console.log(isAuth)
     return (
       <div className="header">
         <div className="left_section">

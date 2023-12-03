@@ -14,7 +14,11 @@ export interface authState {
   export interface docsState {
       document: docs | null;
       isLoading:  Boolean;
-      status: string | null;
+      status_get: string | null;
+      status_add: string | null;
+      status_del: string | null;
+      status_search: string | null;
+      result_search: string | null;
       docId: string | null;
   }
 export interface docs {
@@ -27,4 +31,9 @@ export interface addDocsParams {
   name: string | null;
   content: string | null;
   referrals: string | null;
+}
+export interface searchDocsParams {
+  name: string | null;
+  depth: string | null;
+  limit: string | null;
 }

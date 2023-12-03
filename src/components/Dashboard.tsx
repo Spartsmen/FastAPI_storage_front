@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../store/hoocs';
 import { checkIsAuth, logout } from '../store/reduces/AuthSlice';
-import { addDocs, getDocs } from '../store/reduces/DocsSlice';
+import { addDocs, getDocs, delDocs } from '../store/reduces/DocsSlice';
 
 const Dashboard = () => { 
   const [id, setId] = useState('');
@@ -13,11 +13,14 @@ const Dashboard = () => {
   const docs = useAppSelector((state) => state.docsSlice.document);
   const docId = useAppSelector((state) => state.docsSlice.docId); 
   const isAuth = useAppSelector((state) => checkIsAuth(state.authSlice));
-  const {status,isLoading} = useAppSelector((state) => state.docsSlice);
+  const {status_add} = useAppSelector((state) => state.docsSlice);
+  const {status_del} = useAppSelector((state) => state.docsSlice);
   
   const [name, setName] = useState<string>(''); 
   const [content, setContent] = useState<string>('');
   const [referrals, setReferrals] = useState<string>(''); 
+
+  const [del_id, setDelId] = useState('');
 
 
   useEffect(() => {
@@ -53,7 +56,20 @@ const Dashboard = () => {
       setContent('');
       setReferrals('');
     } catch (e) {
-      console.log(e);
+    }
+  };
+
+  const handleDelDocs = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const numericId = Number(del_id);
+    if (!isNaN(numericId)) {
+      try {
+        dispatch(delDocs(numericId)); 
+        setDelId('');
+      } catch (e) {
+      }
+    } else {
+      console.log('ID must be a number');
     }
   };
 
@@ -90,7 +106,6 @@ const Dashboard = () => {
             <p>Content: {docs.content}</p>
           </div>
         )}
-        <button onClick={handleLogout}>Log out</button>
       </div>
       <div className="addDocs">
         <h1>Add new document</h1>
@@ -113,9 +128,24 @@ const Dashboard = () => {
             />
             <button type="submit" className='add_docs_button'>Add Document</button>
           </form>
-          {isLoading ? <h2>Loading</h2>: ''}
-          {status && <h2>{`Status: ${status}${docId ? `, Document ID: ${docId}` : ''}`}</h2>}
+         
+          {status_add && <h2>{`Status: ${status_add}${docId ? `, Document ID: ${docId}` : ''}`}</h2>}
         </div>
+        <div className="addDocs">
+        <h1>Delete document</h1>
+        <form onSubmit={handleDelDocs}>
+          <input 
+            type="text" 
+            placeholder="Document Id"
+            value={del_id}
+            onChange={(e) => setDelId(e.target.value)}
+          />
+            <button type="submit" className='del_docs_button'>Delete</button>
+          </form>
+         
+          {status_del && <h2>{`Status: ${status_del}`}</h2>}
+        </div>
+        <button onClick={handleLogout}>Log out</button>
       </div>
     );
   };
