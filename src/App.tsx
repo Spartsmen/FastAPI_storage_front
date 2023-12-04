@@ -1,5 +1,5 @@
 import RegisterPage from "./components/Registration"
-import Header from "./pages/Header"
+import Header from "./components/Header"
 import MainPage from "./components/Main";
 import LoginPage from "./components/Login";
 import DashBoard from "./components/Dashboard";

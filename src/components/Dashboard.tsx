@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../store/hoocs';
 import { checkIsAuth, logout } from '../store/reduces/AuthSlice';
 import { addDocs, getDocs, delDocs } from '../store/reduces/DocsSlice';
+import '../styles/dashboard.css'
 
 const Dashboard = () => { 
   const [id, setId] = useState('');

@@ -1,0 +1,47 @@
+/* Additional styles to ensure the header is always at the top */
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #fff;
+    padding: 10px 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+  }
+  
+  /* Styles for the left section with the logo */
+  .left_section a {
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 24px;
+    color: #333;
+  }
+  
+  /* Styles for the right section with the account/login link */
+  .right_section {
+    display: flex;
+    justify-content: flex-start; /* Aligns the content to the left */
+    flex: 1; /* Takes up the remaining space, but aligns items to the start */
+  }
+  
+  .right_section a {
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 24px;
+    color: #333;
+    padding-left: 20px; /* Adds spacing on the left side of the right section content */
+  }
+  
+  .right_section a:hover {
+    text-decoration: underline;
+  }
+  
+  /* Padding for the body to avoid content being hidden behind the fixed header */
+  body {
+    padding-top: 60px; /* Adjust this value based on the header's height */
+  }
+  

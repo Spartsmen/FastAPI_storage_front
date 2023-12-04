@@ -2,6 +2,7 @@ import { useState,useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from "../store/hoocs";
 import { useNavigate } from 'react-router-dom';
 import { checkIsAuth, loginUser } from "../store/reduces/AuthSlice";
+import '../styles/login.css'
 
 const LoginPage = () => {
   const dispatch = useAppDispatch();
@@ -60,8 +61,8 @@ const LoginPage = () => {
             <div className='hor_line'></div>
         
       </form>
-      {isLoading ? <h2>Loading</h2>: ''}
-      {status ? <h2>{status}</h2>: ''}
+      {isLoading ? <h2>Loading...</h2> : ''}
+      {status ? <h2 className="status-message">{status}</h2> : ''}
     </div>
   );
   

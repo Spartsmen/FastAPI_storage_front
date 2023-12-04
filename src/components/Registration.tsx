@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useAppDispatch, useAppSelector } from "../store/hoocs";
 import { registerUser } from "../store/reduces/AuthSlice";
-import "../styles/register.css";
+import'../styles/register.css'
 
 const RegisterPage = () => {
   const dispatch = useAppDispatch();
@@ -30,7 +30,7 @@ const RegisterPage = () => {
     }
   };
   return (
-    <div className="login">
+    <div className="register">
       <form onSubmit={(e) => e.preventDefault()}>
         <h1>Registration</h1>
         <input 
@@ -62,8 +62,8 @@ const RegisterPage = () => {
 
         
       </form>
-      {isLoading ? <h2>Loading</h2>: ''}
-      {status ? <h2>{status}</h2>: ''}
+      {isLoading ? <h2>Loading...</h2> : ''}
+      {status ? <h2 className="status-message">{status}</h2> : ''}
     </div>
   );
   
